@@ -18,8 +18,14 @@ class ServerListActivity : AppCompatActivity(), ServerDiscoveryThread.ServerDisc
 
     private lateinit var mServerAdapter: EspServerAdapter
     private lateinit var mLayoutManager: LinearLayoutManager
-    private var mDiscoveryTimeout = 5000;
+    private var mDiscoveryTimeout = 2000;
     private val mServerList = EspServerList()
+
+    /*
+     * Used to mark some earlier discovered servers as offline
+     * if they do not respond to a new discovery request
+     */
+    private val mNewScanServerList: MutableList<EspServer> = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,8 +42,9 @@ class ServerListActivity : AppCompatActivity(), ServerDiscoveryThread.ServerDisc
     }
 
     override fun onServerFound(server: EspServer) {
+        mNewScanServerList.add(server)
         val position = mServerList.discoveredServerList.replaceServer(server)
-        if(position == -1)
+        if (position == -1)
             mServerList.discoveredServerList.add(server)
         runOnUiThread {
             if (position != -1)
@@ -52,9 +59,18 @@ class ServerListActivity : AppCompatActivity(), ServerDiscoveryThread.ServerDisc
 
     override fun onSocketClosed() {
         mSwipeRefreshLayout.isRefreshing = false;
+        for (server in mServerList.discoveredServerList) {
+            if (!mNewScanServerList.contains(server)) {
+                server.online = false
+                runOnUiThread {
+                    mServerAdapter.notifyDiscoveredServerChanged(mServerList.discoveredServerList.indexOf(server))
+                }
+            }
+        }
     }
 
     override fun onSocketOpened() {
+        mNewScanServerList.removeAll(mNewScanServerList)
         mSwipeRefreshLayout.isRefreshing = true;
     }
 }
