@@ -17,23 +17,26 @@ android:
   - android-27
   - extra-google-m2repository
 before_install:
-- if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then openssl aes-256-cbc -K $encrypted_85125ec7b691_key -iv $encrypted_85125ec7b691_iv -in led_ctrl.jks.enc -out led_ctrl.jks -d; fi
+- if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then openssl aes-256-cbc -K $encrypted_85125ec7b691_key -iv $encrypted_85125ec7b691_iv
+  -in led_ctrl.jks.enc -out led_ctrl.jks -d; fi
 - yes | sdkmanager "platforms;android-27"
 - git fetch --tags
 script:
-- if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then bash ./gradlew app:assembleRelease; fi
-- if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then bash ./gradlew app:assembleDebug; fi
+- if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then bash ./gradlew app:assembleRelease;
+  fi
+- if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then bash ./gradlew app:assembleDebug;
+  fi
 before_deploy:
-  - git config --local user.name "RouNNdeL"
-  - git config --local user.email "krzys.zdulski@gmail.com"
-  - git tag "${MAJOR_MINOR}_${TRAVIS_BUILD_NUMBER}" --force
-  - cp app/build/outputs/apk/release/app-release.apk $APK_NAME
+- git config --local user.name "RouNNdeL"
+- git config --local user.email "krzys.zdulski@gmail.com"
+- git tag "${MAJOR_MINOR}_${TRAVIS_BUILD_NUMBER}" --force
+- cp app/build/outputs/apk/release/app-release.apk $APK_NAME
 deploy:
 - provider: releases
   skip_cleanup: true
   api_key:
-     secure: "e8WubzjAMrDsGmmWviHv/zSZQ7IQiZELQW+j4pEUWneO6C3gytxCzUlPI9BQ9qly/a0zKe2xTFMuk9NELu+4b/yp2t3VtD+WyiOYxR6NLoBFpBNMRfvxvVcj9S5bnkm21EQJqblK6WqG9fezb79VWBKeBvmI54L3y1DnpeTILy26ZQtaV4NC0yv/LmWdZhGE46YvN2npgIIHDdI9YZavim+4MI+MFyWrrWoc0XeKyaH63AtNJbr/C33jKhvW+lX78o+AIShgL7zO/kKySz7UrQodaJGMZjk+BWgQSBCkRf2PsB/Flk/z59XACP5gw8mUtmDJzbAoiUc2KAhLH8B3SIO9DMhiYWu5T2mqXHQOw2pvAfrnOh7pj3psa5OkNtfidY0X0Kk+z24cAns2H7f5qMe6j+sxjwS5px1xW61SE4kf7fT6JuhtxgpE+kpSOd0+mQbruFahsoUAgK/gv1T8erU7XCjqAsp4Moc40yMckCNGEPd5tLMSxM7R3HoXBkHjagMJMYv1dime9F6nYtsetr2eTFsQf8it6JsYWM7KxYoU6410yJCgXEaFd6mEqfkdWCcrBUW91boxdUVi05RErtxUtm+62wvhZbCM0kHH9vbe+XM2/bcbzO05/c7uJgGBFumbKt1B6dsdjVFT57uT38jUSkCA+PKBWoAwbhssG/U="
-  file: $APK_NAME
+    secure: e8WubzjAMrDsGmmWviHv/zSZQ7IQiZELQW+j4pEUWneO6C3gytxCzUlPI9BQ9qly/a0zKe2xTFMuk9NELu+4b/yp2t3VtD+WyiOYxR6NLoBFpBNMRfvxvVcj9S5bnkm21EQJqblK6WqG9fezb79VWBKeBvmI54L3y1DnpeTILy26ZQtaV4NC0yv/LmWdZhGE46YvN2npgIIHDdI9YZavim+4MI+MFyWrrWoc0XeKyaH63AtNJbr/C33jKhvW+lX78o+AIShgL7zO/kKySz7UrQodaJGMZjk+BWgQSBCkRf2PsB/Flk/z59XACP5gw8mUtmDJzbAoiUc2KAhLH8B3SIO9DMhiYWu5T2mqXHQOw2pvAfrnOh7pj3psa5OkNtfidY0X0Kk+z24cAns2H7f5qMe6j+sxjwS5px1xW61SE4kf7fT6JuhtxgpE+kpSOd0+mQbruFahsoUAgK/gv1T8erU7XCjqAsp4Moc40yMckCNGEPd5tLMSxM7R3HoXBkHjagMJMYv1dime9F6nYtsetr2eTFsQf8it6JsYWM7KxYoU6410yJCgXEaFd6mEqfkdWCcrBUW91boxdUVi05RErtxUtm+62wvhZbCM0kHH9vbe+XM2/bcbzO05/c7uJgGBFumbKt1B6dsdjVFT57uT38jUSkCA+PKBWoAwbhssG/U=
+  file: "$APK_NAME"
   on:
     branch: master
 before_cache:
