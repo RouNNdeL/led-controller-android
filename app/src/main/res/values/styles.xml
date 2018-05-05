@@ -8,4 +8,19 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="TextStyleListHeader">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">@dimen/list_header_text_size</item>
+    </style>
+
+    <style name="TextStyleListSecondary">
+        <item name="android:textSize">@dimen/list_item_text_secondary_size</item>
+        <item name="android:textColor">@android:color/secondary_text_light</item>
+    </style>
+
+    <style name="TextStyleListPrimary">
+        <item name="android:textColor">@android:color/primary_text_light</item>
+        <item name="android:textSize">@dimen/list_item_text_primary_size</item>
+    </style>
+
 </resources>

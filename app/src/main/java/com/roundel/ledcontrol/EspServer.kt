@@ -16,7 +16,7 @@ class EspServer(val name: String, val ip: InetAddress) {
 
     fun sendColor(context: Context, color: Int) {
         val queue = Volley.newRequestQueue(context)
-        val url = "http://"+this.ip.hostAddress + "/color"
+        val url = "http://${this.ip.hostAddress}/color"
         val body = color.toString(16).substring(2);
         val request = object : StringRequest(Request.Method.PUT, url,
                 Response.Listener<String> { Log.d(TAG, it) },
