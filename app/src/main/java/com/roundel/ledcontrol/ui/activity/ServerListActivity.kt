@@ -6,31 +6,55 @@ import android.support.v7.widget.LinearLayoutManager
 import com.roundel.ledcontrol.R
 import com.roundel.ledcontrol.entity.EspServer
 import com.roundel.ledcontrol.entity.EspServerList
+import com.roundel.ledcontrol.entity.replaceServer
+import com.roundel.ledcontrol.net.ServerDiscoveryThread
 import com.roundel.ledcontrol.ui.adapter.EspServerAdapter
 import java.net.InetAddress
 
 import kotlinx.android.synthetic.main.activity_server_list.server_list_recyclerview as mRecyclerView
+import kotlinx.android.synthetic.main.activity_server_list.server_list_swiperefresh as mSwipeRefreshLayout
 
-class ServerListActivity : AppCompatActivity() {
+class ServerListActivity : AppCompatActivity(), ServerDiscoveryThread.ServerDiscoveryListener {
 
     private lateinit var mServerAdapter: EspServerAdapter
     private lateinit var mLayoutManager: LinearLayoutManager
+    private var mDiscoveryTimeout = 5000;
+    private val mServerList = EspServerList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_server_list)
 
-        //TODO Just and example, implement server saving and discovery
-        val serverList = EspServerList(
-                listOf(EspServer("Michal's LEDs", InetAddress.getByName("192.168.1.130"), true),
-                        EspServer("Krzysiek's LEDs", InetAddress.getByName("192.168.1.121"))),
-                listOf(EspServer("LED Controller #2", InetAddress.getByName("192.168.1.143"), true),
-                        EspServer("Living Room Remote", InetAddress.getByName("192.168.1.150"), true),
-                        EspServer("PC LEDs", InetAddress.getByName("192.168.1.167"), true)))
-        mServerAdapter = EspServerAdapter(serverList, this)
+        //TODO Implement saving the servers to favourites
+        mServerAdapter = EspServerAdapter(mServerList, this)
 
         mLayoutManager = LinearLayoutManager(this)
         mRecyclerView.layoutManager = mLayoutManager
         mRecyclerView.adapter = mServerAdapter
+
+        mSwipeRefreshLayout.setOnRefreshListener { EspServer.udpScan(this, mDiscoveryTimeout) }
+    }
+
+    override fun onServerFound(server: EspServer) {
+        val position = mServerList.discoveredServerList.replaceServer(server)
+        if(position == -1)
+            mServerList.discoveredServerList.add(server)
+        runOnUiThread {
+            if (position != -1)
+                mServerAdapter.notifyDiscoveredServerChanged(position)
+            else
+                mServerAdapter.notifyDiscoveredServerInserted(
+                        mServerList.discoveredServerList.indexOf(server)
+                )
+        }
+
+    }
+
+    override fun onSocketClosed() {
+        mSwipeRefreshLayout.isRefreshing = false;
+    }
+
+    override fun onSocketOpened() {
+        mSwipeRefreshLayout.isRefreshing = true;
     }
 }

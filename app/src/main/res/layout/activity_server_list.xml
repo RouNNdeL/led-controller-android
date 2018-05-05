@@ -19,6 +19,7 @@
         tools:ignore="RtlHardcoded" />
 
     <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/server_list_swiperefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

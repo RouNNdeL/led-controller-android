@@ -16,8 +16,8 @@ typealias ItemType = Int
 class EspServerAdapter(private var mServerList: EspServerList, private val context: Context) : RecyclerView.Adapter<EspServerAdapter.ViewHolder>() {
 
     companion object {
-        private val TYPE_ITEM: ItemType = 0;
-        private val TYPE_HEADER: ItemType = 1;
+        private const val TYPE_ITEM: ItemType = 0;
+        private const val TYPE_HEADER: ItemType = 1;
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: ItemType): ViewHolder {
@@ -31,9 +31,9 @@ class EspServerAdapter(private var mServerList: EspServerList, private val conte
     override fun getItemCount(): Int {
         var count = mServerList.rememberedServerList.size + mServerList.discoveredServerList.size
         if (mServerList.rememberedServerList.isNotEmpty())
-            count += 1
+            count++
         if (mServerList.discoveredServerList.isNotEmpty())
-            count += 1
+            count++
         return count
     }
 
@@ -45,7 +45,7 @@ class EspServerAdapter(private var mServerList: EspServerList, private val conte
                 return
             } else if (p - 1 < mServerList.rememberedServerList.size) {
                 val divider = mServerList.discoveredServerList.isNotEmpty() &&
-                        p  == mServerList.rememberedServerList.size
+                        p == mServerList.rememberedServerList.size
 
                 fillEspView(mServerList.rememberedServerList[p - 1], holder.itemView, divider); return
             }
@@ -78,7 +78,33 @@ class EspServerAdapter(private var mServerList: EspServerList, private val conte
         throw IllegalStateException("Calling getItemViewType with empty mServerList")
     }
 
-    fun fillEspView(server: EspServer, v: View, divider: Boolean = false) {
+    fun notifyDiscoveredServerChanged(position: Int) {
+        super.notifyItemChanged(getDiscoveredServerPosition(position))
+    }
+
+    fun notifyDiscoveredServerInserted(position: Int) {
+        super.notifyItemInserted(getDiscoveredServerPosition(position))
+    }
+
+    fun notifyRememberedServerChanged(position: Int) {
+        super.notifyItemChanged(getRememberedServerPosition(position))
+    }
+
+    fun notifyRememberedServerInserted(position: Int) {
+        super.notifyItemInserted(getRememberedServerPosition(position))
+    }
+
+    private fun getDiscoveredServerPosition(position: Int): Int {
+        return position + 1 +
+                mServerList.rememberedServerList.size +
+                if (mServerList.rememberedServerList.isNotEmpty()) 1 else 0
+    }
+
+    private fun getRememberedServerPosition(position: Int): Int {
+        return position + 1
+    }
+
+    private fun fillEspView(server: EspServer, v: View, divider: Boolean = false) {
         v.findViewById<TextView>(R.id.list_text_primary).text =
                 server.name
         v.findViewById<TextView>(R.id.list_text_secondary).text =
