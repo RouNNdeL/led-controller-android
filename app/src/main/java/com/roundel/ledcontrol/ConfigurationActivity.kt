@@ -9,12 +9,14 @@ import com.jaredrummler.android.colorpicker.ColorPickerDialogListener
 import kotlinx.android.synthetic.main.activity_config.circle_change_color as mChangeColorCardView
 
 class ConfigurationActivity : AppCompatActivity(), ColorPickerDialogListener {
-    override fun onDialogDismissed(dialogId: Int) {
+    var mCurrentColor : Int = 0xFFFFFFFF.toInt();
 
+    override fun onDialogDismissed(dialogId: Int) {
+        mChangeColorCardView.setCardBackgroundColor(mCurrentColor);
     }
 
     override fun onColorSelected(dialogId: Int, color: Int) {
-
+        mCurrentColor = color;
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +24,7 @@ class ConfigurationActivity : AppCompatActivity(), ColorPickerDialogListener {
         setContentView(R.layout.activity_config)
 
         mChangeColorCardView.setOnClickListener {
-            ColorPickerDialog.newBuilder().setColor(0xffffff).show(this)
+            ColorPickerDialog.newBuilder().setColor(mCurrentColor).show(this)
         }
     }
 
