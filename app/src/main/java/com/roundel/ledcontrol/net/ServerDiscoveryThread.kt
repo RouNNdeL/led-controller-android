@@ -98,7 +98,7 @@ class ServerDiscoveryThread : Thread() {
 
                 Log.i(TAG, "Message: $message")
                 try {
-                    val response = JSONObject(message
+                    val response = JSONObject(message)
                     if (response.getString("message") == DISCOVERY_RESPONSE) {
                         val name = response.getString("name")
                         val hostAddress = receivePacket.address
