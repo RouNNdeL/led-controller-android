@@ -11,6 +11,9 @@ android:
   - extra-google-m2repository
 before_install:
 - yes | sdkmanager "platforms;android-27"
+script:
+- if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then bash ./gradlew app:assembleRelease; fi
+- if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then bash ./gradlew app:assembleDebug; fi
 before_cache:
 - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
 - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
