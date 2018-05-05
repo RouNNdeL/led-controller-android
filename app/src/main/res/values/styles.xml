@@ -3,23 +3,24 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorPrimaryDark">@color/color_primary_dark</item>
+        <item name="colorAccent">@color/color_accent</item>
     </style>
 
     <style name="TextStyleListHeader">
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:textSize">@dimen/list_header_text_size</item>
+        <item name="android:textColor">@color/text_secondary_light</item>
     </style>
 
     <style name="TextStyleListSecondary">
         <item name="android:textSize">@dimen/list_item_text_secondary_size</item>
-        <item name="android:textColor">@android:color/secondary_text_light</item>
+        <item name="android:textColor">@color/text_secondary_light</item>
     </style>
 
     <style name="TextStyleListPrimary">
-        <item name="android:textColor">@android:color/primary_text_light</item>
+        <item name="android:textColor">@color/text_primary_light</item>
         <item name="android:textSize">@dimen/list_item_text_primary_size</item>
     </style>
 

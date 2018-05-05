@@ -8,22 +8,23 @@
 
     <TextView
         android:id="@+id/list_text_primary"
+        style="@style/TextStyleListPrimary"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toTopOf="@+id/list_text_secondary"
-        app:layout_constraintEnd_toStartOf="@+id/view"
+        app:layout_constraintEnd_toStartOf="@+id/list_server_status_icon"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
-        tools:text="Michael's Controller"
-        style="@style/TextStyleListPrimary" />
+        tools:text="Michael's Controller" />
 
     <TextView
         android:id="@+id/list_text_secondary"
+        style="@style/TextStyleListSecondary"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -31,20 +32,30 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/list_text_primary"
         app:layout_constraintTop_toBottomOf="@+id/list_text_primary"
-        tools:text="192.168.1.131"
-        style="@style/TextStyleListSecondary" />
+        tools:text="192.168.1.131" />
 
     <View
-        android:id="@+id/view"
+        android:id="@+id/list_server_status_icon"
         android:layout_width="16dp"
         android:layout_height="16dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/circle_server_status"
-        android:backgroundTint="@color/colorSuccess"
+        android:backgroundTint="@color/color_success"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/list_divider_bottom"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginBottom="0dp"
+        android:background="@color/list_divider_light"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

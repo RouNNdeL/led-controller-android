@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ServerListActivity">
+    tools:context=".ui.activity.ServerListActivity">
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButton"
@@ -23,11 +23,12 @@
         android:layout_height="match_parent">
 
         <android.support.v7.widget.RecyclerView
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
+            android:id="@+id/server_list_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/list_item_server"/>
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
+            tools:listitem="@layout/list_item_server" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
