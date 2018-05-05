@@ -9,7 +9,7 @@ android {
 
     signingConfigs {
         travis {
-            storeFile file("../key_store.jks")
+            storeFile file("../led_ctrl.jks")
             storePassword System.getenv("STORE_PASSWORD")
             keyAlias System.getenv("KEY_ALIAS")
             keyPassword System.getenv("KEY_PASSWORD")
