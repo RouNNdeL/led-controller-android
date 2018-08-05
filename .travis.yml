@@ -1,0 +1,49 @@
+language: android
+dist: trusty
+jdk: oraclejdk8
+env:
+  global:
+  - MAJOR_MINOR=0.1
+  - APK_NAME=SmartHome-${MAJOR_MINOR}_${TRAVIS_BUILD_NUMBER}.apk
+  - secure: E1vSsoiDAOns4pt2ndM/lB8Rnx9mBLnNJZWA5zKsJpmG6M+T5ZKO8ClwSP0Yw+Ap8v6oLumSBgSbqiPDchtkU32g2k95DO2hf4g56h9afbaRGqw5vc3nrOUdEzmaM2wMM2KBK1ROkYkkEfRYSSWtRpbFILcCo+gDeT3lGi538L7yK7LRquFotJebqeLKUGgYF0+06IK89znQNcFR49TE/O+8DB19eZl8Ct9mp0HaA+mEpB/p6pFKqmcKSoEZN7poT8bUDlC3tVal7Gq54L8X4VohLTp+lpea13D01PeHLyqIIjIOpf7PgyH1/ajgpcf/aLKUCEcCuR/I4xuDd0D2JB+DfPtSHp+wSF4G0TTzROTPXDUBRM6AoqrXnj6Fk84yxIbOZ/ts3xXJnEuk+Uk4TEsYOmZrb3T7DpvXhHVmAqqVNAqzKvGoVkcUyocXMl5wiIZaopobBg8dhbA70h5TSNuK3ngpRJRPgqQmXM97fH0B21Ds/xBmQlkffq4X9+o3YY0wGZTkZIujMOWzyjyz7NQjj+EAhnO6E3X7vLJI1KvMG6A/FAPW/qHmmN43S+v3wcyl9WEt494QRHZe9vyuGGnXFUUlj10MJsMFTMosBwq4AetNtSACz//tALoW3acJQ7lDdAFt5ktjI4vNb/gdP1Agt0dBbh2m7HIt6QHEtTI=
+  - secure: nHAZyaclsSOjK3NrwSVia2qQ5WlXqAnCdVZsraYLAzxN/U3Y20Qz5qcVRhrscqygPIQA7gK3oX56EJdBdKqbNO4h9ZOZPaPFmYzFI376JXAhUZl9Lcp4sNvb9GfBcE95Nh2fna0fCO1hieHphv0juoQ+B0Bk42Hs/U7HRNtQ41euF2+mUnG39pPSrXZPbs8H76E/epze6FMkvownTs0HhrpbvRP/NwNAMVN9swcjnbulKZv7CJXHdyHMwmm/5WE+Jbz3VUwvPg5kQlsQS3JaAnykO+KUqTepB/z3nB5ny0KhkHacGkeaGdhc8or9NCWuuZ2wwwQ9xMVbkTMUf/At/eXNfpUdOy2cf/39XYvrC4reyx6N1MkwK0zgnOuOEyaenaP0DAVw8LObmmv0mne2OUZG36qLdCndruInRmlWhZg1sTUUJhVSBVeARJO/kLImFx4N9s3J/VZMwU7h35PvgRmvofjwsI02LGyyTCMppQTCnAz2pNvEYuHv+sYMPvgjAPgOppBv8xjG/e2QSF/OQZolPUgZJWRZRVDKH4UclIw3+ubZgNzgR543Wo/tMz7284u21N3oq+nqGarcN+ZFNYv+2boowv5aPw2r55MQSqf8mFEVsQGs9Z69xx09BD7F2ijRc0ikh5dCoAdg7drtZdQ2klkidMXCbs8tUERI+ro=
+  - secure: YgocjX0+NlNQND2oX1RqAWP4xT1bJEEQQ/v0IqtgFNHS4QhHZL4nsWht92RcQFVN3WrVdIo3YeVk5z/algzbmFVHaQYdvDXExB4b2PXBWQlKV4rHRe+T0rUy8Uzb731ff98pxWQHI3HHBH3Z1aZCwXS/5E7c2VDxITXeBeGRujXxbk7jjG9ByxEOg3AFFp21dNFSUIdBg8BStZYuLWQIjkkD5GGIi1m5sp5D/ygy8D5VSQSdaaj4Hm6uc1KAxjqZt09P5sHJ8EL1vIMeLHkPYrQlB9QtpxNq7dzu2jx9K9Lvw9CgEe4y82tJLB6T77OHqjdZnI2zFD7zZXTdnJH3ZmNbEZOnrqU8WUF7zkEecgGRXJnRavL/vxVtLVrCUrL6qeFXHMvuTDHVsGa+4V6mJFkbG9rxxuMAvn0zocbWEElvj6FWsmX4M+Gl0AlCPnRkQxeF0UQguOAx+tbWwehphIy1bAF2Cwcgi/hrmbX0B5zKo6ubcHSEQYY0dCjgWm943miWwTcVw7ENMwUf24l0gMd1d48HRirUfaIwe6GVa2uTrypa1jnj/6GlhmlNVh8C6IWsS4KGg2LFFPDnjSEuqr6QlE2V/wG5jJTXlrqcI0mcSDFoA1lw1OS6U4NKipqAv89ZHB/1lwy4N3Ap/PgDlCBia7RR1uusu5fqSNT7WKU=
+android:
+  components:
+  - tools
+  - tools
+  - platform-tools
+  - build-tools-27.0.3
+  - android-27
+  - extra-google-m2repository
+before_install:
+- if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then openssl aes-256-cbc -K $encrypted_85125ec7b691_key -iv $encrypted_85125ec7b691_iv
+  -in led_ctrl.jks.enc -out led_ctrl.jks -d; fi
+- yes | sdkmanager "platforms;android-27"
+- git fetch --tags
+script:
+- if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then bash ./gradlew app:assembleRelease;
+  fi
+- if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then bash ./gradlew app:assembleDebug;
+  fi
+before_deploy:
+- git config --local user.name "RouNNdeL"
+- git config --local user.email "krzys.zdulski@gmail.com"
+- git tag "${MAJOR_MINOR}_${TRAVIS_BUILD_NUMBER}" --force
+- cp app/build/outputs/apk/release/app-release.apk $APK_NAME
+deploy:
+- provider: releases
+  skip_cleanup: true
+  api_key:
+    secure: e8WubzjAMrDsGmmWviHv/zSZQ7IQiZELQW+j4pEUWneO6C3gytxCzUlPI9BQ9qly/a0zKe2xTFMuk9NELu+4b/yp2t3VtD+WyiOYxR6NLoBFpBNMRfvxvVcj9S5bnkm21EQJqblK6WqG9fezb79VWBKeBvmI54L3y1DnpeTILy26ZQtaV4NC0yv/LmWdZhGE46YvN2npgIIHDdI9YZavim+4MI+MFyWrrWoc0XeKyaH63AtNJbr/C33jKhvW+lX78o+AIShgL7zO/kKySz7UrQodaJGMZjk+BWgQSBCkRf2PsB/Flk/z59XACP5gw8mUtmDJzbAoiUc2KAhLH8B3SIO9DMhiYWu5T2mqXHQOw2pvAfrnOh7pj3psa5OkNtfidY0X0Kk+z24cAns2H7f5qMe6j+sxjwS5px1xW61SE4kf7fT6JuhtxgpE+kpSOd0+mQbruFahsoUAgK/gv1T8erU7XCjqAsp4Moc40yMckCNGEPd5tLMSxM7R3HoXBkHjagMJMYv1dime9F6nYtsetr2eTFsQf8it6JsYWM7KxYoU6410yJCgXEaFd6mEqfkdWCcrBUW91boxdUVi05RErtxUtm+62wvhZbCM0kHH9vbe+XM2/bcbzO05/c7uJgGBFumbKt1B6dsdjVFT57uT38jUSkCA+PKBWoAwbhssG/U=
+  file: "$APK_NAME"
+  on:
+    branch: master
+before_cache:
+- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+cache:
+  directories:
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
+  - "$HOME/.android/build-cache"
