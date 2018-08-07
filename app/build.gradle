@@ -16,11 +16,11 @@ android {
     }
     defaultConfig {
         applicationId "com.roundel.smarthome"
-        minSdkVersion 27
+        minSdkVersion 25
         targetSdkVersion 27
         if (System.getenv("TRAVIS") == "true") {
             versionCode = Integer.valueOf(System.getenv("TRAVIS_BUILD_NUMBER"))
-            versionName = System.getenv("MAJOR_MINOR") + " beta #" + System.getenv("TRAVIS_BUILD_NUMBER")
+            versionName = System.getenv("MAJOR_MINOR") + " alpha #" + System.getenv("TRAVIS_BUILD_NUMBER")
         } else {
             versionCode 1
             versionName "0.1 alpha"
@@ -45,4 +45,9 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.google.code.gson:gson:2.8.5'
 }
