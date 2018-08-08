@@ -1,6 +1,7 @@
 language: android
 dist: trusty
 jdk: oraclejdk8
+if: tag IS blank
 env:
   global:
   - MAJOR_MINOR=0.1
