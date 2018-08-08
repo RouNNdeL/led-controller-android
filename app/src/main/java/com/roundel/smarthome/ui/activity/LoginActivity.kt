@@ -1,5 +1,6 @@
 package com.roundel.smarthome.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.constraint.Group
 import android.support.design.widget.TextInputEditText
@@ -13,6 +14,7 @@ import com.roundel.smarthome.api.OAuthException
 import com.roundel.smarthome.api.OAuthManager
 import com.roundel.smarthome.bind
 import com.roundel.smarthome.hideKeyboard
+import java.io.IOException
 import java.net.ConnectException
 
 class LoginActivity : AppCompatActivity() {
@@ -34,27 +36,31 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        showForm(true)
+    }
+
     private fun initiatePasswordLogin() {
         val username = usernameTextInput.text.toString()
         val password = passwordTextInput.text.toString()
 
         hideKeyboard(this)
         showForm(false)
-        val activity = this
         Thread(Runnable {
             try {
                 val manager = OAuthManager(username, password)
                 //TODO: We got the tokens, redirect to main activity
-                Log.d("LoginActivity", manager.tokens.expires.toString())
+                startActivity(Intent(this@LoginActivity, MainActivity::class.java))
             } catch (e: OAuthException) {
                 runOnUiThread {
                     showForm(true)
-                    Toast.makeText(activity, "Invalid username or password!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@LoginActivity, "Invalid username or password!", Toast.LENGTH_SHORT).show()
                 }
-            } catch (e1: ConnectException) {
+            } catch (e1: IOException) {
                 runOnUiThread {
                     showForm(true)
-                    Toast.makeText(activity, "Connection error", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@LoginActivity, "Connection error", Toast.LENGTH_SHORT).show()
                 }
             }
         }).start()
