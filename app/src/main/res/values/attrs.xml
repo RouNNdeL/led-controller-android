@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LightOnOffButton">
+        <attr name="iconColorEnabled" format="color" />
+        <attr name="iconColorDisabled" format="color" />
+        <attr name="backgroundColorEnabled" format="color" />
+        <attr name="backgroundColorDisabled" format="color" />
+        <attr name="animationDuration" format="integer" />
+    </declare-styleable>
+</resources>
