@@ -1,14 +1,14 @@
 package com.roundel.smarthome.ui.activity
 
-import android.graphics.Color
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
-import com.github.ivbaranov.mli.MaterialLetterIcon
-import com.mikepenz.materialdrawer.AccountHeaderBuilder
-import com.mikepenz.materialdrawer.DrawerBuilder
-import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
-import com.mikepenz.materialdrawer.model.ProfileDrawerItem
+import android.util.TypedValue
+import co.zsmb.materialdrawerkt.builders.accountHeader
+import co.zsmb.materialdrawerkt.builders.drawer
+import co.zsmb.materialdrawerkt.draweritems.badgeable.primaryItem
+import co.zsmb.materialdrawerkt.draweritems.profile.profile
 import com.roundel.smarthome.R
 import com.roundel.smarthome.bind
 import com.roundel.smarthome.random
@@ -25,27 +25,36 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        val icon = MaterialLetterIcon.Builder(this).create()
+        val typedValue = TypedValue()
+        theme.resolveAttribute(android.R.attr.textColorSecondary, typedValue, true)
+        val textColorSecondaryInverse = typedValue.data
 
-        val accountHeader = AccountHeaderBuilder()
-                .withActivity(this)
-                .addProfiles(
-                        ProfileDrawerItem().withName("Krzysztof Zdulski")
-                                .withEmail("roundel").withIcon(GenericUserIconDrawable("K")))
-                .withSelectionListEnabled(false)
-                .withHeaderBackground(getDrawable(R.drawable.bg_smart_devices_drawable).apply {
+        val enabledDrawerItem = 1
+
+        val name = "Krzysztof Zdulski"
+        drawer {
+            accountHeader {
+                profile(name) {
+                    iconDrawable = GenericUserIconDrawable(name)
+                }
+
+                selectionListEnabled = false
+                profileImagesClickable = false
+
+                backgroundDrawable = getDrawable(R.drawable.bg_smart_devices_drawable).apply {
                     setTint(ColorUtils.MATERIAL900.random(0))
-                })
-                .build()
+                }
+            }
 
-        DrawerBuilder()
-                .withActivity(this)
-                .withToolbar(toolbar)
-                .withAccountHeader(accountHeader)
-                .addDrawerItems(
-                        PrimaryDrawerItem().withIdentifier(1)
-                                .withName("Devices")
-                                .withIcon(R.drawable.ic_lightbulb))
-                .build()
+            primaryItem("Devices") {
+                icon = R.drawable.ic_lightbulb
+                iconTintingEnabled = true
+            }
+
+            primaryItem("Effects") {
+                icon = R.drawable.ic_auto_fix
+                iconTintingEnabled = true
+            }
+        }
     }
 }
