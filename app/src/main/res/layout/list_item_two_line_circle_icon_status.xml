@@ -40,7 +40,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:backgroundTint="?android:colorAccent"
-        tools:backgroundTintMode="src_over" />
+        tools:backgroundTintMode="src_in" />
 
     <ImageView
         android:id="@+id/list_icon"
@@ -53,7 +53,7 @@
         app:layout_constraintTop_toTopOf="@+id/view"
         tools:src="@drawable/avd_lightbulb_on"
         tools:tint="?android:textColorPrimaryInverse"
-        tools:tintMode="src_over" />
+        tools:tintMode="src_in" />
 
     <View
         android:id="@+id/view2"
@@ -65,6 +65,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:backgroundTint="@color/color_success"
-        tools:backgroundTintMode="src_over" />
+        tools:backgroundTintMode="src_in" />
 
 </android.support.constraint.ConstraintLayout>

@@ -37,6 +37,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/circle"
+        android:backgroundTint="?android:colorAccent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -50,6 +51,6 @@
         app:layout_constraintTop_toTopOf="@+id/view"
         tools:src="@drawable/ic_lightbulb"
         tools:tint="?android:textColorPrimaryInverse"
-        tools:tintMode="src_over" />
+        tools:tintMode="src_in" />
 
 </android.support.constraint.ConstraintLayout>

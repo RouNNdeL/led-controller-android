@@ -40,5 +40,5 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@drawable/ic_lightbulb"
         tools:tint="?android:textColorSecondary"
-        tools:tintMode="src_over" />
+        tools:tintMode="src_in" />
 </android.support.constraint.ConstraintLayout>

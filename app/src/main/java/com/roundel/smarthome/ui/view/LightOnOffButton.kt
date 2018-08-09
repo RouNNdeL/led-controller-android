@@ -65,8 +65,8 @@ class LightOnOffButton : ImageView {
             typedArray.recycle()
         }
 
-        backgroundTintMode = PorterDuff.Mode.SRC_ATOP
-        imageTintMode = PorterDuff.Mode.SRC_ATOP
+        backgroundTintMode = PorterDuff.Mode.SRC_IN
+        imageTintMode = PorterDuff.Mode.SRC_IN
         this.setOnClickListener {
             lightStatus = !lightStatus
             onStatusChangedListener?.onStatusChanged(lightStatus)

@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         val name = "Krzysztof Zdulski"
         drawer {
             accountHeader {
-                profile(name) {
+                profile(name, "roundel") {
                     iconDrawable = GenericUserIconDrawable(name)
                 }
 
