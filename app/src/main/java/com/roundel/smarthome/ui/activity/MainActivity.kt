@@ -1,52 +1,51 @@
 package com.roundel.smarthome.ui.activity
 
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
-import android.view.View
+import android.support.v7.widget.Toolbar
+import com.github.ivbaranov.mli.MaterialLetterIcon
 import com.mikepenz.materialdrawer.AccountHeaderBuilder
 import com.mikepenz.materialdrawer.DrawerBuilder
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem
 import com.roundel.smarthome.R
 import com.roundel.smarthome.bind
-import com.roundel.smarthome.ui.view.LightOnOffButton
-import okhttp3.*
+import com.roundel.smarthome.random
+import com.roundel.smarthome.ui.ColorUtils
+import com.roundel.smarthome.ui.drawable.GenericUserIconDrawable
 
 
 class MainActivity : AppCompatActivity() {
 
-    val lightButton: LightOnOffButton by bind(R.id.device_state_button)
+    val toolbar: Toolbar by bind(R.id.main_toolbar)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.device_simple_light)
+        setContentView(R.layout.activity_main)
+        setSupportActionBar(toolbar)
 
-        val accountHeader = AccountHeaderBuilder().withActivity(this).addProfiles(
-                ProfileDrawerItem().withName("Krzysztof Zdulski").withEmail("rounndel")).build()
+        val icon = MaterialLetterIcon.Builder(this).create()
 
-        DrawerBuilder().withActivity(this).withAccountHeader(accountHeader).addDrawerItems(
-                PrimaryDrawerItem().withIdentifier(1).withName("Devices").withIcon(R.drawable.ic_lightbulb)
-        ).build()
+        val accountHeader = AccountHeaderBuilder()
+                .withActivity(this)
+                .addProfiles(
+                        ProfileDrawerItem().withName("Krzysztof Zdulski")
+                                .withEmail("roundel").withIcon(GenericUserIconDrawable("K")))
+                .withSelectionListEnabled(false)
+                .withHeaderBackground(getDrawable(R.drawable.bg_smart_devices_drawable).apply {
+                    setTint(ColorUtils.MATERIAL900.random(0))
+                })
+                .build()
 
-        lightButton.onStatusChangedListener = object : LightOnOffButton.OnStatusChangedListener {
-            override fun onStatusChanged(status: Boolean) {
-
-                //TODO: Temporary demo
-                val client = OkHttpClient()
-
-
-                val body = RequestBody.create(MediaType.parse("text/plain; charset=utf-8"), "ff${if (status) "01" else "00"}*")
-                val request = Request.Builder()
-                        .url("http://192.168.1.11/globals")
-                        .put(body)
-                        .build()
-                Thread(Runnable {
-                    val response = client.newCall(request).execute()
-                    Log.d("TAG", response.message())
-                }).start()
-
-            }
-        }
+        DrawerBuilder()
+                .withActivity(this)
+                .withToolbar(toolbar)
+                .withAccountHeader(accountHeader)
+                .addDrawerItems(
+                        PrimaryDrawerItem().withIdentifier(1)
+                                .withName("Devices")
+                                .withIcon(R.drawable.ic_lightbulb))
+                .build()
     }
 }
